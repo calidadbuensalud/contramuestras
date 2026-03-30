@@ -1,0 +1,1977 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contramuestras - Gestión Almazara</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --olive-900: #2D3A25;
+  --olive-800: #3A4D2F;
+  --olive-700: #4A6741;
+  --olive-600: #5A7D4F;
+  --olive-500: #6B9360;
+  --olive-400: #8FBC8F;
+  --olive-300: #A8D5A0;
+  --olive-200: #C8E6C0;
+  --olive-100: #E8F5E4;
+  --olive-50: #F5FAF3;
+  --gold-500: #C4960C;
+  --gold-400: #D4A82A;
+  --gold-300: #E8C94A;
+  --gold-100: #FFF8E1;
+  --red-500: #C0392B;
+  --red-100: #FDEDEC;
+  --blue-500: #2980B9;
+  --blue-100: #EBF5FB;
+  --orange-500: #E67E22;
+  --orange-100: #FEF5E7;
+  --gray-900: #1A1A1A;
+  --gray-800: #2D2D2D;
+  --gray-700: #4A4A4A;
+  --gray-600: #666666;
+  --gray-500: #888888;
+  --gray-400: #AAAAAA;
+  --gray-300: #CCCCCC;
+  --gray-200: #E0E0E0;
+  --gray-100: #F0F0F0;
+  --gray-50: #F8F8F8;
+  --white: #FFFFFF;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--gray-50);
+  color: var(--gray-800);
+  min-height: 100vh;
+}
+
+/* ============ LOGIN ============ */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--olive-900) 0%, var(--olive-700) 50%, var(--olive-500) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-page::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+  top: -200px; right: -200px;
+}
+
+.login-page::after {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+  bottom: -100px; left: -100px;
+}
+
+.login-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  z-index: 1;
+}
+
+.login-card h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: var(--olive-800);
+  margin-bottom: 4px;
+}
+
+.login-card .subtitle {
+  color: var(--gray-500);
+  font-size: 14px;
+  margin-bottom: 32px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-bottom: 6px;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--gray-800);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: var(--white);
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  outline: none;
+  border-color: var(--olive-500);
+  box-shadow: 0 0 0 3px rgba(106,147,96,0.15);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: var(--olive-700);
+  color: var(--white);
+  width: 100%;
+}
+
+.btn-primary:hover { background: var(--olive-800); }
+
+.btn-secondary {
+  background: var(--gray-100);
+  color: var(--gray-700);
+}
+
+.btn-secondary:hover { background: var(--gray-200); }
+
+.btn-success { background: #27ae60; color: var(--white); }
+.btn-success:hover { background: #219a52; }
+
+.btn-danger { background: var(--red-500); color: var(--white); }
+.btn-danger:hover { background: #A93226; }
+
+.btn-whatsapp { background: #25D366; color: var(--white); }
+.btn-whatsapp:hover { background: #1DA851; }
+
+.btn-sm { padding: 8px 14px; font-size: 13px; }
+.btn-xs { padding: 5px 10px; font-size: 12px; }
+
+.login-error {
+  background: var(--red-100);
+  color: var(--red-500);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  margin-bottom: 16px;
+  display: none;
+}
+
+/* ============ APP LAYOUT ============ */
+.app { display: none; }
+
+.app-header {
+  background: var(--olive-800);
+  color: var(--white);
+  padding: 0 24px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-md);
+}
+
+.app-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-user {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.btn-logout {
+  background: rgba(255,255,255,0.15);
+  color: var(--white);
+  border: none;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.btn-logout:hover { background: rgba(255,255,255,0.25); }
+
+/* Navigation */
+.app-nav {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 0 24px;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+}
+
+.nav-tab {
+  padding: 14px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray-500);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.nav-tab:hover { color: var(--olive-700); }
+
+.nav-tab.active {
+  color: var(--olive-700);
+  border-bottom-color: var(--olive-700);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--red-500);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  padding: 0 5px;
+  margin-left: 6px;
+}
+
+/* Content */
+.app-content {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.page { display: none; }
+.page.active { display: block; }
+
+/* ============ DASHBOARD ============ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.stat-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--olive-500);
+}
+
+.stat-card.warning { border-left-color: var(--orange-500); }
+.stat-card.info { border-left-color: var(--blue-500); }
+.stat-card.success { border-left-color: #27ae60; }
+
+.stat-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-top: 4px;
+}
+
+.stat-detail {
+  font-size: 12px;
+  color: var(--gray-500);
+  margin-top: 4px;
+}
+
+/* Cards */
+.card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 20px;
+}
+
+.card-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gray-800);
+}
+
+.card-body { padding: 20px; }
+
+/* ============ TABLE ============ */
+.table-wrapper { overflow-x: auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th {
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--gray-200);
+  white-space: nowrap;
+}
+
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--gray-100);
+  vertical-align: middle;
+}
+
+tr:hover td { background: var(--gray-50); }
+
+/* Status badges */
+.status {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.status-solicitada { background: var(--orange-100); color: var(--orange-500); }
+.status-localizada { background: var(--gold-100); color: var(--gold-500); }
+.status-analizada { background: var(--blue-100); color: var(--blue-500); }
+.status-enviada { background: #EDE7F6; color: #7E57C2; }
+.status-completada { background: var(--olive-100); color: var(--olive-700); }
+
+/* ============ FILTERS ============ */
+.filters-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filters-bar input, .filters-bar select {
+  padding: 9px 14px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  background: var(--white);
+}
+
+.filters-bar input:focus, .filters-bar select:focus {
+  outline: none;
+  border-color: var(--olive-500);
+}
+
+/* ============ MODAL ============ */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 600px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(20px);
+  transition: transform 0.2s;
+}
+
+.modal-overlay.active .modal {
+  transform: translateY(0);
+}
+
+.modal-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--gray-400);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.modal-close:hover { color: var(--gray-700); }
+
+.modal-body { padding: 24px; }
+
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--gray-100);
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+/* ============ TIMELINE ============ */
+.timeline { position: relative; padding-left: 28px; }
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--gray-200);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -24px;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gray-300);
+  border: 2px solid var(--white);
+}
+
+.timeline-dot.active { background: var(--olive-500); }
+.timeline-dot.current { background: var(--gold-500); box-shadow: 0 0 0 4px rgba(196,150,12,0.2); }
+
+.timeline-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--gray-800);
+}
+
+.timeline-date {
+  font-size: 12px;
+  color: var(--gray-500);
+  margin-top: 2px;
+}
+
+/* ============ RESULTS GRID ============ */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.result-block {
+  background: var(--gray-50);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  border: 1px solid var(--gray-200);
+}
+
+.result-block h4 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--olive-700);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  font-size: 13px;
+}
+
+.result-label { color: var(--gray-600); }
+.result-value { font-weight: 600; color: var(--gray-800); }
+
+/* ============ WHATSAPP PREVIEW ============ */
+.wa-preview {
+  background: #ECE5DD;
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin: 16px 0;
+}
+
+.wa-bubble {
+  background: #DCF8C6;
+  border-radius: 8px 8px 0 8px;
+  padding: 12px 14px;
+  max-width: 90%;
+  margin-left: auto;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+/* ============ LOADING ============ */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: var(--gray-500);
+  font-size: 14px;
+  gap: 10px;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--gray-200);
+  border-top-color: var(--olive-500);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ============ TOAST ============ */
+.toast-container {
+  position: fixed;
+  top: 70px;
+  right: 24px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toast {
+  background: var(--gray-900);
+  color: var(--white);
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  box-shadow: var(--shadow-lg);
+  animation: slideIn 0.3s ease;
+  max-width: 350px;
+}
+
+.toast.success { background: #27ae60; }
+.toast.error { background: var(--red-500); }
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+  .login-card { margin: 16px; padding: 32px 24px; }
+  .app-content { padding: 16px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .filters-bar { flex-direction: column; }
+  .filters-bar input, .filters-bar select { width: 100%; }
+  .app-nav { padding: 0 12px; }
+  .nav-tab { padding: 12px 14px; font-size: 13px; }
+  .results-grid { grid-template-columns: 1fr; }
+  .modal { max-width: 100%; margin: 10px; }
+}
+
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: 1fr; }
+  .stat-value { font-size: 26px; }
+}
+
+/* ============ NOTIF PENDING INDICATOR ============ */
+.notif-pending {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--orange-500);
+  margin-left: 6px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 600px) {
+  .form-row { grid-template-columns: 1fr; }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--gray-500);
+}
+
+.empty-state .icon { font-size: 48px; margin-bottom: 12px; }
+
+/* ============ ALERTAS ============ */
+.alertas-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s;
+}
+
+.alertas-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.alertas-panel {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  transform: scale(0.9);
+  transition: transform 0.25s;
+}
+
+.alertas-overlay.active .alertas-panel {
+  transform: scale(1);
+}
+
+.alertas-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--olive-800);
+  color: var(--white);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.alertas-header h3 { font-size: 16px; }
+
+.alerta-item {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--gray-100);
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  animation: alertSlideIn 0.3s ease;
+}
+
+.alerta-item:last-child { border-bottom: none; }
+
+@keyframes alertSlideIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.alerta-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.alerta-icon.solicitud { background: var(--orange-100); }
+.alerta-icon.localizada { background: var(--gold-100); }
+.alerta-icon.analizada { background: var(--blue-100); }
+
+.alerta-content { flex: 1; }
+
+.alerta-mensaje {
+  font-size: 14px;
+  color: var(--gray-800);
+  line-height: 1.4;
+}
+
+.alerta-fecha {
+  font-size: 11px;
+  color: var(--gray-500);
+  margin-top: 4px;
+}
+
+.alertas-footer {
+  padding: 14px 24px;
+  border-top: 1px solid var(--gray-100);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.header-alertas-btn {
+  position: relative;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: var(--white);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.header-alertas-btn:hover { background: rgba(255,255,255,0.25); }
+
+.header-alertas-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--red-500);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  animation: pulse 1.5s infinite;
+}
+</style>
+</head>
+<body>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toasts"></div>
+
+<!-- ============ LOGIN PAGE ============ -->
+<div class="login-page" id="loginPage">
+  <div class="login-card">
+    <h1>🫒 Contramuestras</h1>
+    <p class="subtitle">Gestión de contramuestras — Almazara</p>
+    <div class="login-error" id="loginError"></div>
+    <div class="form-group">
+      <label>Usuario</label>
+      <input type="text" id="loginUser" placeholder="Introduzca su usuario" autocomplete="username">
+    </div>
+    <div class="form-group">
+      <label>Contraseña</label>
+      <input type="password" id="loginPass" placeholder="Introduzca su contraseña" autocomplete="current-password">
+    </div>
+    <button class="btn btn-primary" id="btnLogin" onclick="doLogin()">Acceder</button>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div class="app" id="app">
+
+  <!-- Header -->
+  <header class="app-header">
+    <h2>🫒 Contramuestras</h2>
+    <div class="header-right">
+      <button class="header-alertas-btn" id="btnAlertas" onclick="openAlertas()" style="display:none">
+        🔔
+        <span class="header-alertas-badge" id="alertasBadge" style="display:none">0</span>
+      </button>
+      <span class="header-user" id="headerUser"></span>
+      <button class="btn-logout" onclick="doLogout()">Salir</button>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="app-nav" id="appNav"></nav>
+
+  <!-- Content -->
+  <main class="app-content">
+
+    <!-- DASHBOARD -->
+    <div class="page" id="pageDashboard">
+      <div class="stats-grid" id="statsGrid"></div>
+      <div class="card">
+        <div class="card-header">
+          <h3>Contramuestras por estado</h3>
+        </div>
+        <div class="card-body" id="dashEstados"></div>
+      </div>
+    </div>
+
+    <!-- CONTRAMUESTRAS LIST -->
+    <div class="page" id="pageContramuestras">
+      <div class="filters-bar">
+        <input type="text" id="filterSearch" placeholder="🔍 Buscar nº muestra..." oninput="filterList()">
+        <select id="filterEstado" onchange="filterList()">
+          <option value="">Todos los estados</option>
+          <option value="SOLICITADA">Solicitada</option>
+          <option value="LOCALIZADA">Localizada</option>
+          <option value="ANALIZADA INTERNAMENTE">Analizada</option>
+          <option value="ENVIADA A LABORATORIO">Enviada a Lab.</option>
+          <option value="COMPLETADA">Completada</option>
+        </select>
+        <select id="filterSocio" onchange="filterList()" style="display:none">
+          <option value="">Todos los socios</option>
+        </select>
+        <div style="flex:1"></div>
+        <button class="btn btn-primary btn-sm" id="btnNueva" onclick="openNuevaModal()" style="display:none">+ Nueva contramuestra</button>
+      </div>
+      <div class="card">
+        <div class="table-wrapper" id="tableContainer">
+          <div class="loading"><div class="spinner"></div> Cargando...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOCIOS -->
+    <div class="page" id="pageSocios">
+      <div class="filters-bar">
+        <input type="text" id="filterSocioSearch" placeholder="🔍 Buscar socio..." oninput="filterSociosList()">
+        <div style="flex:1"></div>
+        <button class="btn btn-primary btn-sm" onclick="openSocioModal()">+ Nuevo socio</button>
+      </div>
+      <div class="card">
+        <div class="table-wrapper" id="sociosTableContainer">
+          <div class="loading"><div class="spinner"></div> Cargando...</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ============ MODAL: DETALLE CONTRAMUESTRA ============ -->
+<div class="modal-overlay" id="modalDetalle">
+  <div class="modal" style="max-width:700px">
+    <div class="modal-header">
+      <h3 id="detalleTitle">Contramuestra</h3>
+      <button class="modal-close" onclick="closeModal('modalDetalle')">&times;</button>
+    </div>
+    <div class="modal-body" id="detalleBody"></div>
+    <div class="modal-footer" id="detalleFooter"></div>
+  </div>
+</div>
+
+<!-- ============ MODAL: NUEVA CONTRAMUESTRA ============ -->
+<div class="modal-overlay" id="modalNueva">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Nueva contramuestra</h3>
+      <button class="modal-close" onclick="closeModal('modalNueva')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Nº Muestra</label>
+        <input type="text" id="nuevaNumMuestra" placeholder="Ej: 441 o 2700/2701">
+      </div>
+      <div class="form-group">
+        <label>Nº Socio</label>
+        <select id="nuevaNumSocio">
+          <option value="">Seleccionar socio...</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Observaciones</label>
+        <textarea id="nuevaObs" rows="2" placeholder="Opcional"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modalNueva')">Cancelar</button>
+      <button class="btn btn-primary" onclick="crearContramuestra()">Registrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: RESULTADOS ============ -->
+<div class="modal-overlay" id="modalResultados">
+  <div class="modal" style="max-width:650px">
+    <div class="modal-header">
+      <h3 id="resultadosTitle">Introducir resultados</h3>
+      <button class="modal-close" onclick="closeModal('modalResultados')">&times;</button>
+    </div>
+    <div class="modal-body" id="resultadosBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modalResultados')">Cancelar</button>
+      <button class="btn btn-primary" onclick="submitResultados()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: WHATSAPP ============ -->
+<div class="modal-overlay" id="modalWhatsapp">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>📱 Notificar por WhatsApp</h3>
+      <button class="modal-close" onclick="closeModal('modalWhatsapp')">&times;</button>
+    </div>
+    <div class="modal-body" id="waBody"></div>
+    <div class="modal-footer" id="waFooter"></div>
+  </div>
+</div>
+
+<!-- ============ MODAL: SOCIO ============ -->
+<div class="modal-overlay" id="modalSocio">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="socioModalTitle">Socio</h3>
+      <button class="modal-close" onclick="closeModal('modalSocio')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Nº Socio</label>
+        <input type="text" id="socioNum" placeholder="Número de socio">
+      </div>
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" id="socioNombre" placeholder="Nombre completo">
+      </div>
+      <div class="form-group">
+        <label>Teléfono</label>
+        <input type="tel" id="socioTelefono" placeholder="Ej: 600123456">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="socioEmail" placeholder="email@ejemplo.com">
+      </div>
+      <div class="form-group">
+        <label>Dirección</label>
+        <input type="text" id="socioDireccion" placeholder="Dirección">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modalSocio')">Cancelar</button>
+      <button class="btn btn-primary" onclick="guardarSocio()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: CAMBIAR ESTADO ============ -->
+<div class="modal-overlay" id="modalEstado">
+  <div class="modal" style="max-width:450px">
+    <div class="modal-header">
+      <h3>Cambiar estado</h3>
+      <button class="modal-close" onclick="closeModal('modalEstado')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Nuevo estado</label>
+        <select id="nuevoEstado"></select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modalEstado')">Cancelar</button>
+      <button class="btn btn-primary" onclick="submitEstado()">Actualizar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ALERTAS PANEL ============ -->
+<div class="alertas-overlay" id="alertasOverlay">
+  <div class="alertas-panel">
+    <div class="alertas-header">
+      <h3>🔔 Alertas pendientes</h3>
+      <button class="modal-close" onclick="closeAlertas()" style="color:var(--white)">&times;</button>
+    </div>
+    <div id="alertasBody"></div>
+    <div class="alertas-footer">
+      <button class="btn btn-secondary btn-sm" onclick="marcarTodasLeidas()">Marcar todas como leídas</button>
+      <button class="btn btn-primary btn-sm" onclick="closeAlertas()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// CONFIGURACIÓN
+// ============================================================
+const API_URL = 'https://script.google.com/macros/s/AKfycbxu-cJTRAB0m1le1ankVNHdXxSy82JZAKi2xRD4BDeI9UIty3DLYCtPv7m8XtkXnylT/exec';
+
+let currentUser = null;
+let allContramuestras = [];
+let allSocios = [];
+let currentDetailMuestra = null;
+
+// ============================================================
+// API CALLS
+// ============================================================
+function apiGet(params) {
+  return new Promise((resolve, reject) => {
+    const cbName = 'cb_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+    const url = API_URL + '?' + new URLSearchParams({ ...params, callback: cbName, rol: currentUser?.rol || '' }).toString();
+
+    window[cbName] = function(data) {
+      delete window[cbName];
+      document.getElementById('script_' + cbName)?.remove();
+      resolve(data);
+    };
+
+    const script = document.createElement('script');
+    script.id = 'script_' + cbName;
+    script.src = url;
+    script.onerror = () => {
+      delete window[cbName];
+      script.remove();
+      reject(new Error('Error de conexión'));
+    };
+    document.body.appendChild(script);
+  });
+}
+
+async function apiPost(data) {
+  data.rol = currentUser?.rol || '';
+  data.usuario = currentUser?.usuario || '';
+  const resp = await fetch(API_URL, {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: { 'Content-Type': 'text/plain' }
+  });
+  return resp.json();
+}
+
+// ============================================================
+// AUTH
+// ============================================================
+async function doLogin() {
+  const usuario = document.getElementById('loginUser').value.trim();
+  const password = document.getElementById('loginPass').value;
+  const errEl = document.getElementById('loginError');
+
+  if (!usuario || !password) {
+    errEl.textContent = 'Introduce usuario y contraseña';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  document.getElementById('btnLogin').textContent = 'Accediendo...';
+  document.getElementById('btnLogin').disabled = true;
+
+  try {
+    const result = await apiGet({ action: 'login', usuario, password });
+    if (result.success) {
+      currentUser = result;
+      sessionStorage.setItem('user', JSON.stringify(result));
+      showApp();
+    } else {
+      errEl.textContent = result.error || 'Credenciales incorrectas';
+      errEl.style.display = 'block';
+    }
+  } catch (e) {
+    errEl.textContent = 'Error de conexión. Inténtalo de nuevo.';
+    errEl.style.display = 'block';
+  }
+
+  document.getElementById('btnLogin').textContent = 'Acceder';
+  document.getElementById('btnLogin').disabled = false;
+}
+
+function doLogout() {
+  currentUser = null;
+  sessionStorage.removeItem('user');
+  if (alertasInterval) clearInterval(alertasInterval);
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('loginPage').style.display = 'flex';
+  document.getElementById('loginUser').value = '';
+  document.getElementById('loginPass').value = '';
+}
+
+// Enter key to login
+document.getElementById('loginPass').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+// ============================================================
+// APP INIT
+// ============================================================
+function showApp() {
+  document.getElementById('loginPage').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  document.getElementById('headerUser').textContent = `${currentUser.nombre} (${currentUser.rol.replace('OPERARIO_', '').replace('ADMINISTRADOR', 'Admin')})`;
+
+  buildNav();
+  navigateTo(getDefaultPage());
+  
+  // Comprobar alertas al entrar y cada 30 segundos
+  alertasShownThisSession = false;
+  checkAlertas();
+  if (alertasInterval) clearInterval(alertasInterval);
+  alertasInterval = setInterval(checkAlertas, 30000);
+}
+
+function getDefaultPage() {
+  if (currentUser.rol === 'ADMINISTRADOR') return 'dashboard';
+  return 'contramuestras';
+}
+
+function buildNav() {
+  const nav = document.getElementById('appNav');
+  const tabs = [];
+
+  if (currentUser.rol === 'ADMINISTRADOR') {
+    tabs.push({ id: 'dashboard', label: '📊 Dashboard' });
+    tabs.push({ id: 'contramuestras', label: '📋 Contramuestras' });
+    tabs.push({ id: 'socios', label: '👥 Socios' });
+  } else if (currentUser.rol === 'OPERARIO_BASCULA') {
+    tabs.push({ id: 'contramuestras', label: '📋 Muestras en báscula' });
+  } else if (currentUser.rol === 'OPERARIO_LABORATORIO') {
+    tabs.push({ id: 'contramuestras', label: '🔬 Muestras laboratorio' });
+  }
+
+  nav.innerHTML = tabs.map(t =>
+    `<div class="nav-tab" data-page="${t.id}" onclick="navigateTo('${t.id}')">${t.label}</div>`
+  ).join('');
+}
+
+function navigateTo(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+
+  const pageEl = document.getElementById('page' + pageId.charAt(0).toUpperCase() + pageId.slice(1));
+  if (pageEl) pageEl.classList.add('active');
+
+  const tabEl = document.querySelector(`.nav-tab[data-page="${pageId}"]`);
+  if (tabEl) tabEl.classList.add('active');
+
+  if (pageId === 'dashboard') loadDashboard();
+  if (pageId === 'contramuestras') loadContramuestras();
+  if (pageId === 'socios') loadSocios();
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+async function loadDashboard() {
+  const grid = document.getElementById('statsGrid');
+  grid.innerHTML = '<div class="loading"><div class="spinner"></div> Cargando dashboard...</div>';
+
+  try {
+    const result = await apiGet({ action: 'getDashboard' });
+    if (!result.success) { grid.innerHTML = '<p>Error: ' + result.error + '</p>'; return; }
+    const d = result.data;
+
+    grid.innerHTML = `
+      <div class="stat-card">
+        <div class="stat-label">Total contramuestras</div>
+        <div class="stat-value">${d.total}</div>
+      </div>
+      <div class="stat-card success">
+        <div class="stat-label">Completadas</div>
+        <div class="stat-value">${d.porEstado['COMPLETADA'] || 0}</div>
+      </div>
+      <div class="stat-card warning">
+        <div class="stat-label">En proceso</div>
+        <div class="stat-value">${d.total - (d.porEstado['COMPLETADA'] || 0)}</div>
+      </div>
+      <div class="stat-card info">
+        <div class="stat-label">Notif. pendientes</div>
+        <div class="stat-value">${d.notificacionesPendientes || 0}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Promedio diferencia</div>
+        <div class="stat-value">${d.diferencias.promedio}</div>
+        <div class="stat-detail">Original - Olivarum (${d.diferencias.total} muestras)</div>
+      </div>
+    `;
+
+    // Estado breakdown
+    const dashEstados = document.getElementById('dashEstados');
+    let estadoHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;">';
+    for (const [estado, count] of Object.entries(d.porEstado)) {
+      const pct = d.total > 0 ? Math.round(count / d.total * 100) : 0;
+      const cls = getStatusClass(estado);
+      estadoHTML += `
+        <div style="text-align:center;padding:12px;">
+          <span class="status ${cls}">${estado}</span>
+          <div style="font-size:24px;font-weight:700;margin-top:8px;">${count}</div>
+          <div style="font-size:12px;color:var(--gray-500);">${pct}%</div>
+        </div>`;
+    }
+    estadoHTML += '</div>';
+    dashEstados.innerHTML = estadoHTML;
+
+  } catch (e) {
+    grid.innerHTML = '<p>Error de conexión</p>';
+  }
+}
+
+// ============================================================
+// CONTRAMUESTRAS LIST
+// ============================================================
+async function loadContramuestras() {
+  const container = document.getElementById('tableContainer');
+  container.innerHTML = '<div class="loading"><div class="spinner"></div> Cargando contramuestras...</div>';
+
+  // Show/hide admin-only elements
+  const isAdmin = currentUser.rol === 'ADMINISTRADOR';
+  document.getElementById('btnNueva').style.display = isAdmin ? 'flex' : 'none';
+  document.getElementById('filterSocio').style.display = isAdmin ? 'block' : 'none';
+
+  try {
+    const result = await apiGet({ action: 'getContramuestras' });
+    if (!result.success) { container.innerHTML = '<p>Error: ' + result.error + '</p>'; return; }
+    allContramuestras = result.data;
+
+    // Populate socio filter for admin
+    if (isAdmin && allContramuestras.length > 0) {
+      const socios = [...new Set(allContramuestras.map(c => c.numSocio).filter(Boolean))].sort();
+      const sel = document.getElementById('filterSocio');
+      const current = sel.value;
+      sel.innerHTML = '<option value="">Todos los socios</option>' +
+        socios.map(s => `<option value="${s}">${s}</option>`).join('');
+      sel.value = current;
+    }
+
+    // Populate socio selector for new contramuestra
+    if (isAdmin) {
+      loadSocioSelector();
+    }
+
+    renderTable();
+  } catch (e) {
+    container.innerHTML = '<p>Error de conexión</p>';
+  }
+}
+
+function renderTable() {
+  const container = document.getElementById('tableContainer');
+  const isAdmin = currentUser.rol === 'ADMINISTRADOR';
+  const isBascula = currentUser.rol === 'OPERARIO_BASCULA';
+  const isLab = currentUser.rol === 'OPERARIO_LABORATORIO';
+
+  const search = document.getElementById('filterSearch').value.toLowerCase();
+  const estadoFilter = document.getElementById('filterEstado').value;
+  const socioFilter = isAdmin ? document.getElementById('filterSocio').value : '';
+
+  let filtered = allContramuestras.filter(c => {
+    if (search && !c.numMuestra.toLowerCase().includes(search)) return false;
+    if (estadoFilter && c.estado !== estadoFilter) return false;
+    if (socioFilter && c.numSocio !== socioFilter) return false;
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="icon">📋</div><p>No se encontraron contramuestras</p></div>';
+    return;
+  }
+
+  let html = '<table><thead><tr>';
+  html += '<th>Nº Muestra</th>';
+  if (isAdmin) html += '<th>Fecha</th><th>Nº Socio</th><th>Estado</th><th>Notif.</th><th>Acciones</th>';
+  if (isBascula) html += '<th>Fecha</th><th>Estado</th><th>Acciones</th>';
+  if (isLab) html += '<th>Olivescam GSS</th><th>Olivescam Hum.</th><th>Olivescam Grasa</th><th>Acciones</th>';
+  html += '</tr></thead><tbody>';
+
+  filtered.forEach(c => {
+    html += '<tr>';
+    html += `<td><strong>${c.numMuestra}</strong></td>`;
+
+    if (isAdmin) {
+      html += `<td>${c.fecha || '-'}</td>`;
+      html += `<td>${c.numSocio || '-'}</td>`;
+      html += `<td><span class="status ${getStatusClass(c.estado)}">${c.estado}</span></td>`;
+      html += `<td>${c.notificacionPendiente ? '<span class="notif-pending" title="Notificación pendiente"></span>' : '✓'}</td>`;
+      html += `<td>
+        <button class="btn btn-secondary btn-xs" onclick="openDetalle('${c.numMuestra}')">Ver</button>
+        ${c.notificacionPendiente ? `<button class="btn btn-whatsapp btn-xs" onclick="openWhatsapp('${c.numMuestra}')">📱</button>` : ''}
+      </td>`;
+    }
+
+    if (isBascula) {
+      html += `<td>${c.fecha || '-'}</td>`;
+      html += `<td><span class="status ${getStatusClass(c.estado)}">${c.estado}</span></td>`;
+      html += `<td>`;
+      if (c.estado === 'SOLICITADA') {
+        html += `<button class="btn btn-success btn-xs" onclick="marcarLocalizada('${c.numMuestra}')">Marcar localizada</button>`;
+      } else {
+        html += '<span style="color:var(--gray-400);font-size:12px;">—</span>';
+      }
+      html += `</td>`;
+    }
+
+    if (isLab) {
+      html += `<td>${c.olivescam_gss || '-'}</td>`;
+      html += `<td>${c.olivescam_humedad || '-'}</td>`;
+      html += `<td>${c.olivescam_grasa || '-'}</td>`;
+      html += `<td><button class="btn btn-secondary btn-xs" onclick="openResultadosLab('${c.numMuestra}')">Editar</button></td>`;
+    }
+
+    html += '</tr>';
+  });
+
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+
+function filterList() { renderTable(); }
+
+// ============================================================
+// DETALLE CONTRAMUESTRA (Admin)
+// ============================================================
+async function openDetalle(numMuestra) {
+  currentDetailMuestra = numMuestra;
+  const body = document.getElementById('detalleBody');
+  const footer = document.getElementById('detalleFooter');
+  body.innerHTML = '<div class="loading"><div class="spinner"></div> Cargando...</div>';
+  footer.innerHTML = '';
+  document.getElementById('detalleTitle').textContent = `Contramuestra #${numMuestra}`;
+  openModal('modalDetalle');
+
+  try {
+    const result = await apiGet({ action: 'getContramuestra', numMuestra });
+    if (!result.success) { body.innerHTML = '<p>Error: ' + result.error + '</p>'; return; }
+    const c = result.data;
+
+    // Timeline
+    let timelineHTML = '<h4 style="margin-bottom:14px;font-size:14px;color:var(--gray-600);">Seguimiento</h4><div class="timeline">';
+    const steps = [
+      { estado: 'SOLICITADA', label: 'Solicitada', fecha: c.fecha },
+      { estado: 'LOCALIZADA', label: 'Localizada', fecha: c.fechaLocalizacion },
+      { estado: 'ANALIZADA INTERNAMENTE', label: 'Analizada (Olivescam II)', fecha: c.fechaAnalisisPrevio },
+      { estado: 'ENVIADA A LABORATORIO', label: 'Enviada a laboratorio', fecha: c.fechaEnvioLab },
+      { estado: 'COMPLETADA', label: 'Completada', fecha: c.fechaResultados }
+    ];
+
+    const estadoIdx = steps.findIndex(s => s.estado === c.estado);
+    steps.forEach((s, i) => {
+      const dotClass = i < estadoIdx ? 'active' : i === estadoIdx ? 'current' : '';
+      timelineHTML += `
+        <div class="timeline-item">
+          <div class="timeline-dot ${dotClass}"></div>
+          <div class="timeline-title">${s.label}</div>
+          <div class="timeline-date">${s.fecha || 'Pendiente'}</div>
+        </div>`;
+    });
+    timelineHTML += '</div>';
+
+    // Info
+    let infoHTML = `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;font-size:13px;">
+        <div><strong>Socio:</strong> ${c.numSocio} ${c.nombreSocio ? '(' + c.nombreSocio + ')' : ''}</div>
+        <div><strong>Campaña:</strong> ${c.campana || '-'}</div>
+        <div><strong>Estado:</strong> <span class="status ${getStatusClass(c.estado)}">${c.estado}</span></div>
+        <div><strong>Observaciones:</strong> ${c.observaciones || '-'}</div>
+      </div>`;
+
+    // Results
+    let resultsHTML = '<div class="results-grid">';
+    resultsHTML += renderResultBlock('Olivescam II (antes de mandar)', c.olivescam_gss, c.olivescam_humedad, c.olivescam_grasa);
+    resultsHTML += renderResultBlock('Original (Almazara)', c.original_gss, c.original_humedad, c.original_grasa);
+    resultsHTML += renderResultBlock('Olivarum (Laboratorio)', c.olivarum_gss, c.olivarum_humedad, c.olivarum_grasa);
+    resultsHTML += '</div>';
+
+    // Diferencias
+    let difHTML = '';
+    if (c.dif_original_olivarum || c.dif_olivescam_olivarum) {
+      difHTML = `<div style="margin-top:16px;padding:12px;background:var(--olive-50);border-radius:var(--radius-sm);font-size:13px;">
+        <strong>Diferencias:</strong>
+        ${c.dif_original_olivarum ? `Original - Olivarum: <strong>${c.dif_original_olivarum}</strong>` : ''}
+        ${c.dif_olivescam_olivarum ? ` | Olivescam II - Olivarum: <strong>${c.dif_olivescam_olivarum}</strong>` : ''}
+      </div>`;
+    }
+
+    body.innerHTML = infoHTML + timelineHTML + '<hr style="margin:20px 0;border:none;border-top:1px solid var(--gray-100);">' + resultsHTML + difHTML;
+
+    // Footer actions
+    footer.innerHTML = `
+      <button class="btn btn-secondary btn-sm" onclick="openEstadoModal('${numMuestra}', '${c.estado}')">Cambiar estado</button>
+      <button class="btn btn-primary btn-sm" onclick="openResultadosAdmin('${numMuestra}')">Introducir resultados</button>
+      ${c.notificacionPendiente ? `<button class="btn btn-whatsapp btn-sm" onclick="closeModal('modalDetalle');openWhatsapp('${numMuestra}')">📱 Notificar</button>` : ''}
+    `;
+  } catch (e) {
+    body.innerHTML = '<p>Error de conexión</p>';
+  }
+}
+
+function renderResultBlock(title, gss, hum, grasa) {
+  return `<div class="result-block">
+    <h4>${title}</h4>
+    <div class="result-row"><span class="result-label">GSS Entera</span><span class="result-value">${gss || '-'}</span></div>
+    <div class="result-row"><span class="result-label">Humedad</span><span class="result-value">${hum || '-'}</span></div>
+    <div class="result-row"><span class="result-label">Grasa</span><span class="result-value">${grasa || '-'}</span></div>
+  </div>`;
+}
+
+// ============================================================
+// CAMBIAR ESTADO
+// ============================================================
+let estadoMuestra = null;
+
+function openEstadoModal(numMuestra, estadoActual) {
+  estadoMuestra = numMuestra;
+  const sel = document.getElementById('nuevoEstado');
+  const estados = ['SOLICITADA', 'LOCALIZADA', 'ANALIZADA INTERNAMENTE', 'ENVIADA A LABORATORIO', 'COMPLETADA'];
+  sel.innerHTML = estados.map(e => `<option value="${e}" ${e === estadoActual ? 'selected' : ''}>${e}</option>`).join('');
+  openModal('modalEstado');
+}
+
+async function submitEstado() {
+  const nuevoEstado = document.getElementById('nuevoEstado').value;
+  try {
+    const result = await apiPost({ action: 'actualizarEstado', numMuestra: estadoMuestra, nuevoEstado });
+    if (result.success) {
+      toast('Estado actualizado', 'success');
+      closeModal('modalEstado');
+      closeModal('modalDetalle');
+      loadContramuestras();
+      
+      // Si admin envía a laboratorio, abrir WhatsApp automáticamente
+      if (currentUser.rol === 'ADMINISTRADOR' && nuevoEstado === 'ENVIADA A LABORATORIO') {
+        setTimeout(() => openWhatsapp(estadoMuestra, 'ENVIADA A LABORATORIO'), 500);
+      }
+    } else {
+      toast(result.error, 'error');
+    }
+  } catch (e) {
+    toast('Error de conexión', 'error');
+  }
+}
+
+// ============================================================
+// RESULTADOS
+// ============================================================
+let resultadosMuestra = null;
+let resultadosTipo = null;
+
+function openResultadosAdmin(numMuestra) {
+  resultadosMuestra = numMuestra;
+  resultadosTipo = 'todos';
+  document.getElementById('resultadosTitle').textContent = `Resultados — Muestra #${numMuestra}`;
+
+  document.getElementById('resultadosBody').innerHTML = `
+    <p style="font-size:13px;color:var(--gray-600);margin-bottom:16px;">Introduce los resultados disponibles. Los campos vacíos no se modificarán.</p>
+    
+    <h4 style="color:var(--olive-700);font-size:13px;margin-bottom:8px;">OLIVESCAM II (antes de mandar)</h4>
+    <div class="form-row">
+      <div class="form-group"><label>GSS Entera</label><input type="number" step="0.01" id="res_olv_gss"></div>
+      <div class="form-group"><label>Humedad</label><input type="number" step="0.01" id="res_olv_hum"></div>
+      <div class="form-group"><label>Grasa</label><input type="number" step="0.01" id="res_olv_grasa"></div>
+    </div>
+
+    <h4 style="color:var(--olive-700);font-size:13px;margin:16px 0 8px;">ORIGINAL (Almazara)</h4>
+    <div class="form-row">
+      <div class="form-group"><label>GSS Entera</label><input type="number" step="0.01" id="res_orig_gss"></div>
+      <div class="form-group"><label>Humedad</label><input type="number" step="0.01" id="res_orig_hum"></div>
+      <div class="form-group"><label>Grasa</label><input type="number" step="0.01" id="res_orig_grasa"></div>
+    </div>
+
+    <h4 style="color:var(--olive-700);font-size:13px;margin:16px 0 8px;">OLIVARUM (Laboratorio)</h4>
+    <div class="form-row">
+      <div class="form-group"><label>GSS Entera</label><input type="number" step="0.01" id="res_lab_gss"></div>
+      <div class="form-group"><label>Humedad</label><input type="number" step="0.01" id="res_lab_hum"></div>
+      <div class="form-group"><label>Grasa</label><input type="number" step="0.01" id="res_lab_grasa"></div>
+    </div>
+  `;
+  openModal('modalResultados');
+}
+
+function openResultadosLab(numMuestra) {
+  resultadosMuestra = numMuestra;
+  resultadosTipo = 'olivescam';
+  document.getElementById('resultadosTitle').textContent = `Resultados Olivescam II — Muestra #${numMuestra}`;
+
+  document.getElementById('resultadosBody').innerHTML = `
+    <div class="form-row">
+      <div class="form-group"><label>GSS Entera</label><input type="number" step="0.01" id="res_olv_gss"></div>
+      <div class="form-group"><label>Humedad</label><input type="number" step="0.01" id="res_olv_hum"></div>
+      <div class="form-group"><label>Grasa</label><input type="number" step="0.01" id="res_olv_grasa"></div>
+    </div>
+  `;
+  openModal('modalResultados');
+}
+
+async function submitResultados() {
+  const data = { action: 'guardarResultados', numMuestra: resultadosMuestra, tipo: resultadosTipo };
+
+  const getVal = id => { const el = document.getElementById(id); return el && el.value ? parseFloat(el.value) : undefined; };
+
+  data.olivescam_gss = getVal('res_olv_gss');
+  data.olivescam_humedad = getVal('res_olv_hum');
+  data.olivescam_grasa = getVal('res_olv_grasa');
+
+  if (resultadosTipo === 'todos') {
+    data.original_gss = getVal('res_orig_gss');
+    data.original_humedad = getVal('res_orig_hum');
+    data.original_grasa = getVal('res_orig_grasa');
+    data.olivarum_gss = getVal('res_lab_gss');
+    data.olivarum_humedad = getVal('res_lab_hum');
+    data.olivarum_grasa = getVal('res_lab_grasa');
+  }
+
+  try {
+    const result = await apiPost(data);
+    if (result.success) {
+      toast('Resultados guardados', 'success');
+      closeModal('modalResultados');
+      closeModal('modalDetalle');
+      loadContramuestras();
+    } else {
+      toast(result.error, 'error');
+    }
+  } catch (e) {
+    toast('Error de conexión', 'error');
+  }
+}
+
+// ============================================================
+// NUEVA CONTRAMUESTRA
+// ============================================================
+async function loadSocioSelector() {
+  try {
+    const result = await apiGet({ action: 'getSocios' });
+    if (result.success) {
+      allSocios = result.data;
+      const sel = document.getElementById('nuevaNumSocio');
+      sel.innerHTML = '<option value="">Seleccionar socio...</option>' +
+        allSocios.map(s => `<option value="${s.numSocio}">${s.numSocio}${s.nombre ? ' - ' + s.nombre : ''}</option>`).join('');
+    }
+  } catch (e) {}
+}
+
+function openNuevaModal() {
+  document.getElementById('nuevaNumMuestra').value = '';
+  document.getElementById('nuevaObs').value = '';
+  openModal('modalNueva');
+}
+
+async function crearContramuestra() {
+  const numMuestra = document.getElementById('nuevaNumMuestra').value.trim();
+  const numSocio = document.getElementById('nuevaNumSocio').value;
+
+  if (!numMuestra || !numSocio) {
+    toast('Rellena nº muestra y socio', 'error');
+    return;
+  }
+
+  try {
+    const result = await apiPost({
+      action: 'nuevaContramuestra',
+      numMuestra,
+      numSocio,
+      observaciones: document.getElementById('nuevaObs').value
+    });
+
+    if (result.success) {
+      toast('Contramuestra registrada', 'success');
+      closeModal('modalNueva');
+      loadContramuestras();
+    } else {
+      toast(result.error, 'error');
+    }
+  } catch (e) {
+    toast('Error de conexión', 'error');
+  }
+}
+
+// ============================================================
+// BÁSCULA: MARCAR LOCALIZADA
+// ============================================================
+async function marcarLocalizada(numMuestra) {
+  if (!confirm(`¿Marcar la muestra ${numMuestra} como LOCALIZADA?`)) return;
+
+  try {
+    const result = await apiPost({ action: 'actualizarEstado', numMuestra, nuevoEstado: 'LOCALIZADA' });
+    if (result.success) {
+      toast('Muestra marcada como localizada', 'success');
+      loadContramuestras();
+    } else {
+      toast(result.error, 'error');
+    }
+  } catch (e) {
+    toast('Error de conexión', 'error');
+  }
+}
+
+// ============================================================
+// WHATSAPP NOTIFICATION
+// ============================================================
+async function openWhatsapp(numMuestra, estadoForzado) {
+  const body = document.getElementById('waBody');
+  const footer = document.getElementById('waFooter');
+  body.innerHTML = '<div class="loading"><div class="spinner"></div> Generando mensaje...</div>';
+  footer.innerHTML = '';
+  openModal('modalWhatsapp');
+
+  try {
+    const result = await apiGet({ action: 'getNotificacion', numMuestra, estado: estadoForzado || '' });
+    if (!result.success) {
+      body.innerHTML = `<p style="color:var(--red-500);">⚠️ ${result.error}</p>
+        <p style="margin-top:8px;font-size:13px;color:var(--gray-600);">Asegúrate de que el socio tiene teléfono registrado en la pestaña Socios.</p>`;
+      footer.innerHTML = '<button class="btn btn-secondary" onclick="closeModal(\'modalWhatsapp\')">Cerrar</button>';
+      return;
+    }
+
+    const d = result.data;
+
+    body.innerHTML = `
+      <div style="font-size:13px;margin-bottom:12px;">
+        <strong>Socio:</strong> ${d.numSocio} ${d.nombreSocio ? '(' + d.nombreSocio + ')' : ''}<br>
+        <strong>Teléfono:</strong> ${d.telefono}<br>
+        <strong>Estado:</strong> <span class="status ${getStatusClass(d.estado)}">${d.estado}</span>
+      </div>
+      <p style="font-size:13px;color:var(--gray-600);margin-bottom:8px;">Vista previa del mensaje:</p>
+      <div class="wa-preview">
+        <div class="wa-bubble">${d.mensaje}</div>
+      </div>
+    `;
+
+    footer.innerHTML = `
+      <button class="btn btn-secondary" onclick="closeModal('modalWhatsapp')">Cancelar</button>
+      <button class="btn btn-whatsapp" onclick="enviarWhatsapp('${numMuestra}', '${d.estado}', '${d.whatsappUrl.replace(/'/g, "\\'")}')">
+        📱 Abrir WhatsApp Web
+      </button>
+    `;
+  } catch (e) {
+    body.innerHTML = '<p>Error de conexión</p>';
+  }
+}
+
+async function enviarWhatsapp(numMuestra, estado, url) {
+  // Abrir WhatsApp Web con el mensaje pre-rellenado
+  window.open(url, '_blank');
+
+  // Marcar como notificada
+  try {
+    await apiGet({ action: 'marcarNotificada', numMuestra, estado });
+    toast('WhatsApp abierto. Pulsa Enviar en WhatsApp Web.', 'success');
+    closeModal('modalWhatsapp');
+    loadContramuestras();
+  } catch (e) {
+    toast('WhatsApp abierto, pero no se pudo registrar', 'error');
+  }
+}
+
+// ============================================================
+// SOCIOS
+// ============================================================
+async function loadSocios() {
+  const container = document.getElementById('sociosTableContainer');
+  container.innerHTML = '<div class="loading"><div class="spinner"></div> Cargando socios...</div>';
+
+  try {
+    const result = await apiGet({ action: 'getSocios' });
+    if (!result.success) { container.innerHTML = '<p>Error: ' + result.error + '</p>'; return; }
+    allSocios = result.data;
+    renderSociosTable();
+  } catch (e) {
+    container.innerHTML = '<p>Error de conexión</p>';
+  }
+}
+
+function renderSociosTable() {
+  const container = document.getElementById('sociosTableContainer');
+  const search = document.getElementById('filterSocioSearch').value.toLowerCase();
+
+  let filtered = allSocios.filter(s => {
+    if (search && !s.numSocio.includes(search) && !(s.nombre || '').toLowerCase().includes(search)) return false;
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="icon">👥</div><p>No se encontraron socios</p></div>';
+    return;
+  }
+
+  let html = '<table><thead><tr><th>Nº Socio</th><th>Nombre</th><th>Teléfono</th><th>Email</th><th>Activo</th><th>Acciones</th></tr></thead><tbody>';
+
+  filtered.forEach(s => {
+    html += `<tr>
+      <td><strong>${s.numSocio}</strong></td>
+      <td>${s.nombre || '<span style="color:var(--gray-400)">Sin nombre</span>'}</td>
+      <td>${s.telefono || '<span style="color:var(--red-500)">⚠️ Sin teléfono</span>'}</td>
+      <td>${s.email || '-'}</td>
+      <td>${s.activo === 'SÍ' ? '✅' : '❌'}</td>
+      <td><button class="btn btn-secondary btn-xs" onclick="editarSocio('${s.numSocio}')">Editar</button></td>
+    </tr>`;
+  });
+
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+
+function filterSociosList() { renderSociosTable(); }
+
+function openSocioModal(numSocio) {
+  document.getElementById('socioModalTitle').textContent = numSocio ? 'Editar socio' : 'Nuevo socio';
+  document.getElementById('socioNum').value = '';
+  document.getElementById('socioNombre').value = '';
+  document.getElementById('socioTelefono').value = '';
+  document.getElementById('socioEmail').value = '';
+  document.getElementById('socioDireccion').value = '';
+  document.getElementById('socioNum').disabled = false;
+  openModal('modalSocio');
+}
+
+function editarSocio(numSocio) {
+  const s = allSocios.find(x => x.numSocio === numSocio);
+  if (!s) return;
+
+  document.getElementById('socioModalTitle').textContent = 'Editar socio #' + numSocio;
+  document.getElementById('socioNum').value = s.numSocio;
+  document.getElementById('socioNum').disabled = true;
+  document.getElementById('socioNombre').value = s.nombre || '';
+  document.getElementById('socioTelefono').value = s.telefono || '';
+  document.getElementById('socioEmail').value = s.email || '';
+  document.getElementById('socioDireccion').value = s.direccion || '';
+  openModal('modalSocio');
+}
+
+async function guardarSocio() {
+  const numSocio = document.getElementById('socioNum').value.trim();
+  if (!numSocio) { toast('Introduce nº de socio', 'error'); return; }
+
+  try {
+    const result = await apiPost({
+      action: 'guardarSocio',
+      numSocio,
+      nombre: document.getElementById('socioNombre').value,
+      telefono: document.getElementById('socioTelefono').value,
+      email: document.getElementById('socioEmail').value,
+      direccion: document.getElementById('socioDireccion').value
+    });
+
+    if (result.success) {
+      toast(result.mensaje, 'success');
+      closeModal('modalSocio');
+      loadSocios();
+      loadSocioSelector();
+    } else {
+      toast(result.error, 'error');
+    }
+  } catch (e) {
+    toast('Error de conexión', 'error');
+  }
+}
+
+// ============================================================
+// UTILITIES
+// ============================================================
+function getStatusClass(estado) {
+  if (!estado) return '';
+  if (estado.includes('SOLICITADA')) return 'status-solicitada';
+  if (estado.includes('LOCALIZADA')) return 'status-localizada';
+  if (estado.includes('ANALIZADA')) return 'status-analizada';
+  if (estado.includes('ENVIADA')) return 'status-enviada';
+  if (estado.includes('COMPLETADA')) return 'status-completada';
+  return '';
+}
+
+function openModal(id) {
+  document.getElementById(id).classList.add('active');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('active');
+}
+
+function toast(msg, type = '') {
+  const container = document.getElementById('toasts');
+  const div = document.createElement('div');
+  div.className = 'toast ' + type;
+  div.textContent = msg;
+  container.appendChild(div);
+  setTimeout(() => div.remove(), 4000);
+}
+
+// Close modals with Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+  }
+});
+
+// Close modals clicking overlay
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.classList.remove('active');
+  });
+});
+
+// ============================================================
+// ALERTAS INTERNAS
+// ============================================================
+let alertasPendientes = [];
+let alertasInterval = null;
+
+async function checkAlertas() {
+  try {
+    const result = await apiGet({ action: 'getAlertas' });
+    if (result.success) {
+      alertasPendientes = result.data;
+      const badge = document.getElementById('alertasBadge');
+      const btn = document.getElementById('btnAlertas');
+      
+      btn.style.display = 'inline-flex';
+      
+      if (result.pendientes > 0) {
+        badge.textContent = result.pendientes;
+        badge.style.display = 'flex';
+        
+        // Mostrar popup automático si hay alertas nuevas al entrar
+        if (!alertasShownThisSession) {
+          alertasShownThisSession = true;
+          openAlertas();
+        }
+      } else {
+        badge.style.display = 'none';
+      }
+    }
+  } catch (e) {
+    // Silenciar errores de polling
+  }
+}
+
+let alertasShownThisSession = false;
+
+function openAlertas() {
+  const body = document.getElementById('alertasBody');
+  
+  if (alertasPendientes.length === 0) {
+    body.innerHTML = '<div class="empty-state" style="padding:32px"><div class="icon">✅</div><p>No hay alertas pendientes</p></div>';
+  } else {
+    body.innerHTML = alertasPendientes.map(a => {
+      let icon = '📋';
+      let iconClass = 'solicitud';
+      if (a.tipo === 'MUESTRA_LOCALIZADA') { icon = '📍'; iconClass = 'localizada'; }
+      if (a.tipo === 'MUESTRA_ANALIZADA') { icon = '🔬'; iconClass = 'analizada'; }
+      
+      return `<div class="alerta-item">
+        <div class="alerta-icon ${iconClass}">${icon}</div>
+        <div class="alerta-content">
+          <div class="alerta-mensaje">${a.mensaje}</div>
+          <div class="alerta-fecha">${a.timestamp}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+  
+  document.getElementById('alertasOverlay').classList.add('active');
+}
+
+function closeAlertas() {
+  document.getElementById('alertasOverlay').classList.remove('active');
+}
+
+async function marcarTodasLeidas() {
+  try {
+    const result = await apiGet({ action: 'marcarTodasLeidas' });
+    if (result.success) {
+      toast('Alertas marcadas como leídas', 'success');
+      alertasPendientes = [];
+      document.getElementById('alertasBadge').style.display = 'none';
+      closeAlertas();
+    }
+  } catch (e) {
+    toast('Error al marcar alertas', 'error');
+  }
+}
+
+// Click outside to close alertas
+document.getElementById('alertasOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeAlertas();
+});
+
+// ============================================================
+// AUTO-LOGIN (session restore)
+// ============================================================
+(function init() {
+  const saved = sessionStorage.getItem('user');
+  if (saved) {
+    try {
+      currentUser = JSON.parse(saved);
+      showApp();
+    } catch (e) {
+      sessionStorage.removeItem('user');
+    }
+  }
+})();
+</script>
+</body>
+</html>
